@@ -49,26 +49,41 @@
 	</div>
 
 	<div ng-show="status">
-		<table class="table">
+		<table class="table" ng-table="usersTable" class="table table-striped">
 			<thead>
 				<tr>
-					<th>編號</th>
-					<th>名稱</th>
-					<th>等級</th>
-					<th>存款</th>
-					<th>入會日期</th>
+					<th><a href="#"
+						ng-click="sortType = 'CUST_ID'; sortReverse = !sortReverse">編號</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'CUST_NAME'; sortReverse = !sortReverse">名稱</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'VIP_CODE'; sortReverse = !sortReverse">等級</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'DEPOSIT'; sortReverse = !sortReverse">存款</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'ENTRY_DATE'; sortReverse = !sortReverse">入會日期</a></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="x in datas">
+				<tr
+					ng-repeat="x in datas | orderBy:sortType:sortReverse | filter:searchFish | start: (currentPage - 1) * pageSize | limitTo: pageSize">
 					<td>{{ x.CUST_ID }}</td>
 					<td>{{ x.CUST_NAME }}</td>
-					<td>{{ x.VIP_CODE }}</td>
+					<td>{{ x.VIP_CODE|lv }}</td>
 					<td>{{ x.DEPOSIT }}</td>
 					<td>{{ x.ENTRY_DATE }}</td>
 				</tr>
 			</tbody>
 		</table>
+		<div class="text-center">
+		{{total}}
+		{{pageSize}}
+		{{currentPage}}
+		
+			<ul uib-pagination total-items="datas.length" items-per-page="pageSize" ng-model="currentPage" max-size="5" 
+			next-text=">" previous-text="<" boundary-links="true" first-text="第一頁" last-text="最後一頁"
+                        class="pagination-sm"></ul>
+		</div>
 	</div>
 
 </div>
