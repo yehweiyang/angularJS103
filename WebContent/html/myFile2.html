@@ -1,39 +1,47 @@
 
-   <style>
-   .rowstyle {
-    padding-left: 5px;
-	}
-	
-   </style>
+<style>
+.rowstyle {
+	padding-left: 5px;
+}
+</style>
 
 
-<div class="left_div"  ng-controller="MyFile2Controller">
-<div  class="text-center bg-primary" style="font-size:150%" >
-   
-    <i class="glyphicon glyphicon-th-large rowstyle"></i>
-	<span><font>修改客戶資料</font></span>
-</div>
-<div class="row rowstyle"> 
-<label class="col-md-1">客戶編號 : </label>
- <div class="col-md-5"><input type="text" class="form-control" ng-model="userNumber"/></div> 
- <label class="col-md-1">客戶名稱 : </label>
- <div class="col-md-5"><input type="text" class="form-control" ng-model="userName"/></div> 
- </div>
- <div class="row rowstyle"> 
-<label class="col-md-1">等級 : </label>
- <div class="col-md-5"> <input type="text" class="form-control" ng-model="userName"/> </div> 
- <label class="col-md-1">存款 : </label>
- <div class="col-md-5"><input type="text" class="form-control" ng-model="userName"/></div> 
- </div>
-  <div class="row rowstyle"> 
-<label class="col-md-1">入會日期  : </label>
- <div class="col-md-5"> <input type="date" name="bday" class="form-control"></div> 
+<div class="left_div" ng-controller="MyFile2Controller">
+	<div class="text-center bg-primary" style="font-size: 150%">
 
- </div>
-<div class="row btn-group col-md-offset-5">
-  <button type="button" class="btn btn-primary">查詢</button>
-  <button type="button" class="btn btn-primary">清除</button>
-  
-</div>
+		<i class="glyphicon glyphicon-th-large rowstyle"></i> <span><font>修改客戶資料</font></span>
+	</div>
+	<div class="row rowstyle">
+		<label class="col-md-1">客戶編號 : </label>
+		<div class="col-md-5">
+			<input type="text" class="form-control" ng-model="userNumber" />
+		</div>
+		<label class="col-md-1">客戶名稱 : </label>
+		<div class="col-md-5">
+			<input type="text" class="form-control" ng-model="userName" />
+		</div>
+	</div>
+	<div class="row rowstyle">
+		<label class="col-md-1">等級 : </label>
+		<div class="col-md-5">
+			<input type="text" class="form-control" ng-model="userName" />
+		</div>
+		<label class="col-md-1">存款 : </label>
+		<div class="col-md-5">
+			<input type="text" class="form-control" ng-model="userName" />
+		</div>
+	</div>
+	<div class="row rowstyle">
+		<label class="col-md-1">入會日期 : </label>
+		<div class="col-md-5">
+			<input type="date" name="bday" class="form-control">
+		</div>
+
+	</div>
+	<div class="row btn-group col-md-offset-5">
+		<button type="button" class="btn btn-primary">查詢</button>
+		<button type="button" class="btn btn-primary">清除</button>
+
+	</div>
 
 </div>
