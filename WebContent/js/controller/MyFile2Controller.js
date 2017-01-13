@@ -6,28 +6,19 @@
 						'$rootScope',
 						'$http',
 						'$filter',
-						'Service',
-						function($scope, $rootScope, $http, $filter, Service) {
+						'Scopes',
+						function($scope, $rootScope, $http, $filter, Scopes) {
 
-							  $scope.invokeFirstCtrl = function() {
-								    var Id = '2';
-								    MyService.tempMethod(Id);
 
-								  };
-							
-							
-							$scope.foo = Service.foo;
-							console.log(2222222);
-							console.log($scope.foo);
-							$scope.$on('parentmethod', function(event, args) {
-								console.log('on............');
-								$scope.Message = args.message;
+							$scope.$on('FirstCtrlMethod', function() {
+
+								$scope.userNumber = Scopes.get("GET").CUST_ID;
+								$scope.userName = Scopes.get("GET").CUST_NAME;
+								$scope.userLv = Scopes.get("GET").VIP_CODE;
+								$scope.userDeposit = Scopes.get("GET").DEPOSIT;
+								$scope.userDate = new Date(
+										Scopes.get("GET").ENTRY_DATE);
 							})
-							$scope.userNumber = Service.foo.CUST_ID;
-							$scope.userName = Service.foo.CUST_NAME;
-							$scope.userLv = Service.foo.VIP_CODE;
-							$scope.userDeposit = Service.foo.DEPOSIT;
-							$scope.userDate = new Date(Service.foo.ENTRY_DATE);
 
 							$scope.myFunc = function($event) {
 
@@ -78,13 +69,22 @@
 							};
 
 							$scope.edit = function() {
-
+								if ($scope.userDate == undefined
+										|| $scope.userDate == null
+										|| $scope.userDate == '') {
+									$scope.userDate = '';
+								} else {
+									var bdata = $filter('date')(
+											new Date($scope.userDate),
+											'yyyy-MM-dd');
+									$scope.userDate = bdata;
+								}
 								var editObj = {
 									"CUST_ID" : $scope.userNumber,
 									"CUST_NAME" : $scope.userName,
 									"VIP_CODE" : $scope.userLv,
 									"DEPOSIT" : $scope.userDeposit,
-									"ENTRY_DATE" : new Date($scope.userDate)
+									"ENTRY_DATE" : $scope.userDate
 								};
 								var response = updateJSON(
 										JSON.parse(localStorage

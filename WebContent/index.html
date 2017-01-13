@@ -12,6 +12,7 @@
 <script src="js/main.js"></script>
 <script src="js/controller/MyFile1Controller.js"></script>
 <script src="js/controller/MyFile2Controller.js"></script>
+<script src="js/controller/MyFile3Controller.js"></script>
 
 <head>
 <style>
@@ -29,22 +30,23 @@
 		<div class="container">
 			<div>
 				<label>查詢面板 : <input type="checkbox"
-					ng-model="checkboxModel.value1" ng-click="change()"></label> <label>修改面板
-					: <input type="checkbox" ng-model="checkboxModel.value2" ng-click="change()">
+					ng-model="checkboxModel.value1" ng-click="queryPanel()"></label> <label>修改面板
+					: <input type="checkbox" ng-model="checkboxModel.value2"
+					ng-click="editPanel ()">
 				</label>
-
 			</div>
 			<br> <br> <br>
 
 		</div>
-
 		<div ng-if="checkboxModel.value1" class="panel-body">
 			<div class="slide-animate" ng-include="'html/myFile1.html'"></div>
 		</div>
-		
+
 		<div ng-if="checkboxModel.value2" class="panel-body">
 			<div class="slide-animate" ng-include="'html/myFile2.html'"></div>
 		</div>
+		
+			<div class="slide-animate" ng-include="'html/myFile3.html'"></div>
 	</div>
 
 </body>

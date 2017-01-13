@@ -39,8 +39,7 @@ th {
 		</div>
 	</div>
 	<div class="row rowstyle">
-		<label class="col-md-1">等級 : <button ng-click="invokeFirstCtrl()">Invoke</button>
-		 <button ng-click="invokeFirstCtrl11()">Invoke11</button></label>
+		<label class="col-md-1">等級 : </label>
 		<div class="col-md-5">
 			<select name="singleSelect" ng-model=userLv class="form-control">
 				<option value="">-- 請選擇 --</option>
@@ -48,7 +47,7 @@ th {
 					value="{{option.PARAM_CODE}}">{{option.PARAM_NAME}}</option>
 			</select><br>
 		</div>
-		<label class="col-md-1">入會日期 : </label>
+		<label class="col-md-1">入會日期 : <button ng-click="send()" value="5566">5566</button></label>
 		<div class="col-md-5">
 			<input type="date" name="bday" class="form-control"
 				ng-model="userDate">

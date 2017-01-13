@@ -1,0 +1,37 @@
+<div ng-controller="MyFile3Controller">
+		<table class="table table-bordered" ng-table="usersTable"
+			class="table table-striped">
+			<thead>
+				<tr>
+					<th><a href="#"
+						ng-click="sortType = 'CUST_ID'; sortReverse = !sortReverse">編號</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'CUST_NAME'; sortReverse = !sortReverse">名稱</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'VIP_CODE'; sortReverse = !sortReverse">等級</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'DEPOSIT'; sortReverse = !sortReverse">存款</a></th>
+					<th><a href="#"
+						ng-click="sortType = 'ENTRY_DATE'; sortReverse = !sortReverse">入會日期</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					ng-repeat="x in text | orderBy:sortType:sortReverse | filter:searchFish | start: (currentPage - 1) * pageSize | limitTo: pageSize"
+					ng-click="setSelected(x)"
+					ng-class="{selected : x=== idSelectedVote}">
+					<td class="col-md-2">{{ x.CUST_ID }}</td>
+					<td class="col-md-2">{{ x.CUST_NAME }}</td>
+					<td class="col-md-2">{{ x.VIP_CODE|lv }}</td>
+					<td class="col-md-3">{{ x.DEPOSIT }}</td>
+					<td class="col-md-3">{{ x.ENTRY_DATE }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center">
+			<ul uib-pagination total-items="datas.length"
+				items-per-page="pageSize" ng-model="currentPage" max-size="5"
+				next-text=">" previous-text="<" boundary-links="true"
+				first-text="第一頁" last-text="最後一頁" class="pagination-sm"></ul>
+		</div>
+</div>

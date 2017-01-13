@@ -22,29 +22,58 @@
 });
 
 myApp.service('MyService', function($rootScope) {
-	  var Messenger = {
-	    Temp: "",
-	    TempId: "",
-	    tempMethod: function(Id) {
-	    	console.log(Id)
-	      TempId = Id;
-	      $rootScope.$broadcast('FirstCtrlMethod');
-	    }
+	var Messenger = {
+		tempMethod : function() {
+			$rootScope.$broadcast('FirstCtrlMethod');
+		},
+		queryMethod : function() {
+			console.log('temp.........33');
+			$rootScope.$broadcast('SecondCtrlMethod');
+		}
+	};
+	return Messenger;
+});
+
+myApp.factory('Scopes', function($rootScope) {
+	var mem = {};
+
+	return {
+		store : function(key, value) {
+			mem[key] = value;
+		},
+		get : function(key) {
+			return mem[key];
+		}
+	};
+});
+
+myApp.factory('dataShare',function($rootScope){
+	  var service = {};
+	  service.data = false;
+	  service.sendData = function(data){
+	      this.data = data;
+	      $rootScope.$broadcast('data_shared');
 	  };
-	  return Messenger;
+	  service.getData = function(){
+	    return this.data;
+	  };
+	  return service;
 	});
 
-myApp.factory('Service', function() {
-
-	var Service = {
-		foo : 'Shared service'
-	};
-
-	return Service;
-});
 
 myApp.controller('AppController3', [ '$scope', '$http',
 		function($scope, $http) {
+	
+	$scope.queryPanel = function(){
+		console.log(123456789);
+	}
+	$scope.editPanel = function(){
+		console.log('abcdefghijk');
+	}
+	
+	$scope.$on('SecondCtrlMethod', function() {
+		$scope.value3 = true;
+	})
 			$http.get('json/level.json').success(function(data) {
 				// you can do some processing here
 				$scope.userLevel = data;

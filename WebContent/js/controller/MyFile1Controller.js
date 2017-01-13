@@ -3,40 +3,33 @@
 		'$rootScope',
 		'$http',
 		'$filter',
-		'Service',
+		'Scopes',
 		'MyService',
-		function($scope, $rootScope, $http, $filter, Service,MyService) {
+		'dataShare',
+		function($scope, $rootScope, $http, $filter, Scopes, MyService,dataShare) {
+			
+	         $scope.text = 'Hey111';
 
 			$scope.currentPage = 1; // keeps track of the current page
 			$scope.pageSize = 10 // holds the number of items per page
 
 			var json = {};
 
-
-			
-			
-
 			$scope.sortType = 'CUST_ID'; // set the default sort type
 			$scope.sortReverse = false; // set the default sort order
 			$scope.searchFish = ''; // set the default search/filter
 			// term
-
 			$scope.setSelected = function(idSelectedVote) {
-
 				$scope.idSelectedVote = idSelectedVote;
-				if ($scope.checkboxModel.value1 === true) {
-						console.log('123');
-						MyService.tempMethod(idSelectedVote);
-
-					Service.foo = idSelectedVote;
-					console.log(Service.foo)
-					$scope.$broadcast('parentmethod', {
-						message : "Hello"
-					});
+				Scopes.store("GET", idSelectedVote);
+				if ($scope.checkboxModel.value1 === true
+						&& $scope.checkboxModel.value2 === true) {
+					MyService.tempMethod(idSelectedVote);
 				}
 			};
 
 			$scope.query = function() {
+				
 				if ($scope.userDate == undefined || $scope.userDate == null
 						|| $scope.userDate == '') {
 					$scope.userDate = '';
@@ -59,10 +52,12 @@
 										$scope.userDate);
 							});
 				}
+				Scopes.store("result", true);
 				$scope.status = true;
 				queryMethid(JSON.parse(localStorage.getItem("fakeData")),
 						$scope.userNumber, $scope.userName, $scope.userLv,
 						$scope.userDate);
+
 			};
 
 			$scope.reset = function() {
@@ -100,9 +95,14 @@
 							return true;
 						});
 				$scope.datas = data;
+				MyService.queryMethod();
+				console.log(data.length)
+				console.log(data.length)
+				
+				if(data.length>0){
+					  dataShare.sendData($scope.datas);
+					  console.log($scope.datas)
+					Scopes.store('factoryStore',localStorage.getItem("fakeData"));
+				}
 			};
-			$("tr").click(function() {
-				console.log('oooo');
-				// your click time codes...
-			});
 		} ]);
