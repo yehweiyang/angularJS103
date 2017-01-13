@@ -3,19 +3,38 @@
 		'$rootScope',
 		'$http',
 		'$filter',
-		function($scope, rootScope, $http, $filter) {
-			// a sample array use for paging
-			$scope.list = [];
+		'Service',
+		'MyService',
+		function($scope, $rootScope, $http, $filter, Service,MyService) {
 
 			$scope.currentPage = 1; // keeps track of the current page
 			$scope.pageSize = 10 // holds the number of items per page
 
 			var json = {};
 
+
+			
+			
+
 			$scope.sortType = 'CUST_ID'; // set the default sort type
 			$scope.sortReverse = false; // set the default sort order
 			$scope.searchFish = ''; // set the default search/filter
 			// term
+
+			$scope.setSelected = function(idSelectedVote) {
+
+				$scope.idSelectedVote = idSelectedVote;
+				if ($scope.checkboxModel.value1 === true) {
+						console.log('123');
+						MyService.tempMethod(idSelectedVote);
+
+					Service.foo = idSelectedVote;
+					console.log(Service.foo)
+					$scope.$broadcast('parentmethod', {
+						message : "Hello"
+					});
+				}
+			};
 
 			$scope.query = function() {
 				if ($scope.userDate == undefined || $scope.userDate == null
@@ -29,15 +48,21 @@
 				if ($scope.userLv === undefined) {
 					$scope.userLv = '';
 				}
-				$http.get("json/client.json").success(
-						function(response) {
-							json = response;
-							$scope.status = true;
-							queryMethid(json, $scope.userNumber,
-									$scope.userName, $scope.userLv,
-									$scope.userDate);
-						});
-
+				if (localStorage.getItem("fakeData") === null) {
+					$http.get("json/client.json").success(
+							function(response) {
+								localStorage.setItem("fakeData", JSON
+										.stringify(response));
+								json = response;
+								queryMethid(json, $scope.userNumber,
+										$scope.userName, $scope.userLv,
+										$scope.userDate);
+							});
+				}
+				$scope.status = true;
+				queryMethid(JSON.parse(localStorage.getItem("fakeData")),
+						$scope.userNumber, $scope.userName, $scope.userLv,
+						$scope.userDate);
 			};
 
 			$scope.reset = function() {
@@ -75,7 +100,9 @@
 							return true;
 						});
 				$scope.datas = data;
-				$scope.total = data.length;
 			};
-
+			$("tr").click(function() {
+				console.log('oooo');
+				// your click time codes...
+			});
 		} ]);

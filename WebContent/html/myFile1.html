@@ -7,6 +7,18 @@
 .row.extra-bottom-padding {
 	margin-bottom: 20px;
 }
+
+tr td {
+	text-align: center;
+}
+
+th {
+	text-align: center;
+}
+
+.selected {
+	background-color: #C0C0C0;
+}
 </style>
 
 <div class="left_div" ng-controller="MyFile1Controller">
@@ -27,7 +39,8 @@
 		</div>
 	</div>
 	<div class="row rowstyle">
-		<label class="col-md-1">等級 : </label>
+		<label class="col-md-1">等級 : <button ng-click="invokeFirstCtrl()">Invoke</button>
+		 <button ng-click="invokeFirstCtrl11()">Invoke11</button></label>
 		<div class="col-md-5">
 			<select name="singleSelect" ng-model=userLv class="form-control">
 				<option value="">-- 請選擇 --</option>
@@ -49,7 +62,8 @@
 	</div>
 
 	<div ng-show="status">
-		<table class="table" ng-table="usersTable" class="table table-striped">
+		<table class="table table-bordered" ng-table="usersTable"
+			class="table table-striped">
 			<thead>
 				<tr>
 					<th><a href="#"
@@ -66,23 +80,22 @@
 			</thead>
 			<tbody>
 				<tr
-					ng-repeat="x in datas | orderBy:sortType:sortReverse | filter:searchFish | start: (currentPage - 1) * pageSize | limitTo: pageSize">
-					<td>{{ x.CUST_ID }}</td>
-					<td>{{ x.CUST_NAME }}</td>
-					<td>{{ x.VIP_CODE|lv }}</td>
-					<td>{{ x.DEPOSIT }}</td>
-					<td>{{ x.ENTRY_DATE }}</td>
+					ng-repeat="x in datas | orderBy:sortType:sortReverse | filter:searchFish | start: (currentPage - 1) * pageSize | limitTo: pageSize"
+					ng-click="setSelected(x)"
+					ng-class="{selected : x=== idSelectedVote}">
+					<td class="col-md-2">{{ x.CUST_ID }}</td>
+					<td class="col-md-2">{{ x.CUST_NAME }}</td>
+					<td class="col-md-2">{{ x.VIP_CODE|lv }}</td>
+					<td class="col-md-3">{{ x.DEPOSIT }}</td>
+					<td class="col-md-3">{{ x.ENTRY_DATE }}</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="text-center">
-		{{total}}
-		{{pageSize}}
-		{{currentPage}}
-		
-			<ul uib-pagination total-items="datas.length" items-per-page="pageSize" ng-model="currentPage" max-size="5" 
-			next-text=">" previous-text="<" boundary-links="true" first-text="第一頁" last-text="最後一頁"
-                        class="pagination-sm"></ul>
+			<ul uib-pagination total-items="datas.length"
+				items-per-page="pageSize" ng-model="currentPage" max-size="5"
+				next-text=">" previous-text="<" boundary-links="true"
+				first-text="第一頁" last-text="最後一頁" class="pagination-sm"></ul>
 		</div>
 	</div>
 

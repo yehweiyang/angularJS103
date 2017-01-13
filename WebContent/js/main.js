@@ -20,16 +20,34 @@
 
 	};
 });
-;
+
+myApp.service('MyService', function($rootScope) {
+	  var Messenger = {
+	    Temp: "",
+	    TempId: "",
+	    tempMethod: function(Id) {
+	    	console.log(Id)
+	      TempId = Id;
+	      $rootScope.$broadcast('FirstCtrlMethod');
+	    }
+	  };
+	  return Messenger;
+	});
+
+myApp.factory('Service', function() {
+
+	var Service = {
+		foo : 'Shared service'
+	};
+
+	return Service;
+});
 
 myApp.controller('AppController3', [ '$scope', '$http',
 		function($scope, $http) {
-
-			$scope.change = function() {
-				$http.get('json/level.json').success(function(data) {
-					// you can do some processing here
-					$scope.userLevel = data;
-				});
-			};
+			$http.get('json/level.json').success(function(data) {
+				// you can do some processing here
+				$scope.userLevel = data;
+			});
 
 		} ]);

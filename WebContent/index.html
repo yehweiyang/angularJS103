@@ -24,13 +24,13 @@
 	<div ng-controller="AppController3" class="panel panel-primary">
 		<div class="text-center panel-heading">
 			<i class="glyphicon glyphicon-th-large title_size"></i> <span
-				class="panel-title title_size"><font>���O�m�J</font></span>
+				class="panel-title title_size"><font>面板置入</font></span>
 		</div>
 		<div class="container">
 			<div>
-				<label>�d�߭��O : <input type="checkbox"
-					ng-model="checkboxModel.value1" ng-click="change()"></label> <label>�קﭱ�O
-					: <input type="checkbox" ng-model="checkboxModel.value2">
+				<label>查詢面板 : <input type="checkbox"
+					ng-model="checkboxModel.value1" ng-click="change()"></label> <label>修改面板
+					: <input type="checkbox" ng-model="checkboxModel.value2" ng-click="change()">
 				</label>
 
 			</div>
@@ -38,10 +38,11 @@
 
 		</div>
 
-		<div ng-show="checkboxModel.value1" class="panel-body">
+		<div ng-if="checkboxModel.value1" class="panel-body">
 			<div class="slide-animate" ng-include="'html/myFile1.html'"></div>
 		</div>
-		<div ng-show="checkboxModel.value2" class="panel-body">
+		
+		<div ng-if="checkboxModel.value2" class="panel-body">
 			<div class="slide-animate" ng-include="'html/myFile2.html'"></div>
 		</div>
 	</div>
