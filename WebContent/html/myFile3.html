@@ -1,37 +1,86 @@
+<style>
+.rowstyle {
+	padding-left: 5px;
+}
+
+.row.extra-bottom-padding {
+	margin-bottom: 20px;
+}
+
+tr td {
+	text-align: center;
+}
+
+th {
+	text-align: center;
+}
+
+a {
+	color: white;
+}
+
+tbody>tr:nth-child(even) {
+	background: #FFF0F5
+}
+
+tbody>tr:hover {
+	cursor: pointer;
+	background-color: #00FFFF;
+}
+</style>
 <div ng-controller="MyFile3Controller">
-		<table class="table table-bordered" ng-table="usersTable"
-			class="table table-striped">
-			<thead>
+	<div ng-show="wihtoutResult">查無資料.........</div>
+
+
+
+	<div ng-show="wihtResult">
+		<table class="table  panel panel-primary" ng-table="usersTable">
+			<thead class="panel-heading">
 				<tr>
 					<th><a href="#"
-						ng-click="sortType = 'CUST_ID'; sortReverse = !sortReverse">編號</a></th>
+						ng-click="sortType = 'CUST_ID'; sortReverse = !sortReverse">客戶編號
+							<span class="glyphicon glyphicon-sort-by-attributes"></span>
+					</a></th>
 					<th><a href="#"
-						ng-click="sortType = 'CUST_NAME'; sortReverse = !sortReverse">名稱</a></th>
+						ng-click="sortType = 'CUST_NAME'; sortReverse = !sortReverse">客戶名稱
+							<span class="glyphicon glyphicon-sort-by-attributes"></span>
+					</a></th>
 					<th><a href="#"
-						ng-click="sortType = 'VIP_CODE'; sortReverse = !sortReverse">等級</a></th>
+						ng-click="sortType = 'VIP_CODE'; sortReverse = !sortReverse">等級
+							<span class="glyphicon glyphicon-sort-by-attributes"></span>
+					</a></th>
 					<th><a href="#"
-						ng-click="sortType = 'DEPOSIT'; sortReverse = !sortReverse">存款</a></th>
+						ng-click="sortType = 'DEPOSIT'; sortReverse = !sortReverse">存款
+							<span class="glyphicon glyphicon-sort-by-attributes"></span>
+					</a></th>
 					<th><a href="#"
-						ng-click="sortType = 'ENTRY_DATE'; sortReverse = !sortReverse">入會日期</a></th>
+						ng-click="sortType = 'ENTRY_DATE'; sortReverse = !sortReverse">入會日期
+							<span class="glyphicon glyphicon-sort-by-attributes"></span>
+					</a></th>
 				</tr>
 			</thead>
-			<tbody>
+
+			<tbody class="panel-body">
 				<tr
 					ng-repeat="x in text | orderBy:sortType:sortReverse | filter:searchFish | start: (currentPage - 1) * pageSize | limitTo: pageSize"
-					ng-click="setSelected(x)"
-					ng-class="{selected : x=== idSelectedVote}">
+					ng-click="setSelected(x)" class="clickable-row">
 					<td class="col-md-2">{{ x.CUST_ID }}</td>
 					<td class="col-md-2">{{ x.CUST_NAME }}</td>
 					<td class="col-md-2">{{ x.VIP_CODE|lv }}</td>
-					<td class="col-md-3">{{ x.DEPOSIT }}</td>
-					<td class="col-md-3">{{ x.ENTRY_DATE }}</td>
+					<td class="col-md-3">{{ x.DEPOSIT| currency:"":0 }}</td>
+					<td class="col-md-3">{{ x.ENTRY_DATE | date:"yyyy/MM/dd"}}</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="text-center">
-			<ul uib-pagination total-items="datas.length"
+			<ul uib-pagination total-items="text.length"
 				items-per-page="pageSize" ng-model="currentPage" max-size="5"
 				next-text=">" previous-text="<" boundary-links="true"
 				first-text="第一頁" last-text="最後一頁" class="pagination-sm"></ul>
 		</div>
+	</div>
+
+
+
+
 </div>

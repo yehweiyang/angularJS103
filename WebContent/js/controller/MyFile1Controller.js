@@ -3,33 +3,16 @@
 		'$rootScope',
 		'$http',
 		'$filter',
-		'Scopes',
 		'MyService',
 		'dataShare',
-		function($scope, $rootScope, $http, $filter, Scopes, MyService,dataShare) {
-			
-	         $scope.text = 'Hey111';
-
-			$scope.currentPage = 1; // keeps track of the current page
-			$scope.pageSize = 10 // holds the number of items per page
+		function($scope, $rootScope, $http, $filter, MyService, dataShare) {
 
 			var json = {};
 
-			$scope.sortType = 'CUST_ID'; // set the default sort type
-			$scope.sortReverse = false; // set the default sort order
-			$scope.searchFish = ''; // set the default search/filter
-			// term
-			$scope.setSelected = function(idSelectedVote) {
-				$scope.idSelectedVote = idSelectedVote;
-				Scopes.store("GET", idSelectedVote);
-				if ($scope.checkboxModel.value1 === true
-						&& $scope.checkboxModel.value2 === true) {
-					MyService.tempMethod(idSelectedVote);
-				}
-			};
-
 			$scope.query = function() {
-				
+				reUse();
+			};
+			var reUse = function() {
 				if ($scope.userDate == undefined || $scope.userDate == null
 						|| $scope.userDate == '') {
 					$scope.userDate = '';
@@ -52,16 +35,23 @@
 										$scope.userDate);
 							});
 				}
-				Scopes.store("result", true);
-				$scope.status = true;
 				queryMethid(JSON.parse(localStorage.getItem("fakeData")),
 						$scope.userNumber, $scope.userName, $scope.userLv,
 						$scope.userDate);
 
 			};
+			;
+
+			$scope.$on('data_send', function() {
+				$scope.userNumber = $rootScope.userNumber;
+				$scope.userName = $rootScope.userName;
+				$scope.userDate = $rootScope.userDate;
+				$scope.userLv = $rootScope.userLv;
+				reUse();
+			});
 
 			$scope.reset = function() {
-				$scope.status = false;
+				dataShare.reset();
 				$scope.userNumber = '';
 				$scope.userName = '';
 				$scope.userDate = '';
@@ -96,13 +86,14 @@
 						});
 				$scope.datas = data;
 				MyService.queryMethod();
-				console.log(data.length)
-				console.log(data.length)
-				
-				if(data.length>0){
-					  dataShare.sendData($scope.datas);
-					  console.log($scope.datas)
-					Scopes.store('factoryStore',localStorage.getItem("fakeData"));
+				if (data.length > 0) {
+					$rootScope.userNumber = $scope.userNumber;
+					$rootScope.userName = $scope.userName;
+					$rootScope.userDate = $scope.userDate;
+					$rootScope.userLv = $scope.userLv;
+					dataShare.sendData($scope.datas);
+				} else {
+					dataShare.sendData($scope.datas);
 				}
 			};
 		} ]);

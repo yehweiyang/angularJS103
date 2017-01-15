@@ -20,23 +20,8 @@
 
 	};
 });
-
-myApp.service('MyService', function($rootScope) {
-	var Messenger = {
-		tempMethod : function() {
-			$rootScope.$broadcast('FirstCtrlMethod');
-		},
-		queryMethod : function() {
-			console.log('temp.........33');
-			$rootScope.$broadcast('SecondCtrlMethod');
-		}
-	};
-	return Messenger;
-});
-
 myApp.factory('Scopes', function($rootScope) {
 	var mem = {};
-
 	return {
 		store : function(key, value) {
 			mem[key] = value;
@@ -47,33 +32,49 @@ myApp.factory('Scopes', function($rootScope) {
 	};
 });
 
-myApp.factory('dataShare',function($rootScope){
-	  var service = {};
-	  service.data = false;
-	  service.sendData = function(data){
-	      this.data = data;
-	      $rootScope.$broadcast('data_shared');
-	  };
-	  service.getData = function(){
-	    return this.data;
-	  };
-	  return service;
-	});
+myApp.service('MyService', function($rootScope) {
+	var Messenger = {
+		tempMethod : function() {
+			$rootScope.$broadcast('FirstCtrlMethod');
+		},
+		queryMethod : function() {
+			$rootScope.$broadcast('SecondCtrlMethod');
+		}
+	};
+	return Messenger;
+});
 
+myApp.factory('dataShare', function($rootScope) {
+	var service = {};
+	service.data = false;
+	service.setData = function(data) {
+		this.data = data;
+		$rootScope.$broadcast('data_send');
+	};
+	service.sendData = function(data) {
+		this.data = data;
+		$rootScope.$broadcast('data_shared');
+	};
+	service.reset = function(data) {
+		$rootScope.$broadcast('reset');
+	};
+	service.getData = function() {
+		return this.data;
+	};
+	return service;
+});
 
-myApp.controller('AppController3', [ '$scope', '$http',
-		function($scope, $http) {
-	
-	$scope.queryPanel = function(){
-		console.log(123456789);
-	}
-	$scope.editPanel = function(){
-		console.log('abcdefghijk');
-	}
-	
-	$scope.$on('SecondCtrlMethod', function() {
-		$scope.value3 = true;
-	})
+myApp.controller('AppController3', [ '$scope', '$http', '$templateCache',
+		function($scope, $http, $templateCache) {
+			$scope.html3 = 'html/myFile3.html';
+			$scope.queryPanel = function() {
+			};
+			$scope.editPanel = function() {
+			};
+
+			$scope.$on('SecondCtrlMethod', function() {
+				$scope.value3 = true;
+			});
 			$http.get('json/level.json').success(function(data) {
 				// you can do some processing here
 				$scope.userLevel = data;

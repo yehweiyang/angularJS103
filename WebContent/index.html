@@ -19,24 +19,26 @@
 .title_size {
 	font-size: 150%
 }
+
+.rowstyle {
+	padding-left: 5px;
+}
 </style>
 </head>
-<body ng-app="myApp">
-	<div ng-controller="AppController3" class="panel panel-primary">
+<body ng-app="myApp" class="panel-group">
+	<div ng-controller="AppController3"
+		class="form-horizontal panel panel-primary">
 		<div class="text-center panel-heading">
 			<i class="glyphicon glyphicon-th-large title_size"></i> <span
 				class="panel-title title_size"><font>面板置入</font></span>
 		</div>
-		<div class="container">
-			<div>
-				<label>查詢面板 : <input type="checkbox"
-					ng-model="checkboxModel.value1" ng-click="queryPanel()"></label> <label>修改面板
-					: <input type="checkbox" ng-model="checkboxModel.value2"
-					ng-click="editPanel ()">
-				</label>
-			</div>
-			<br> <br> <br>
-
+		<div class="form-group rowstyle ">
+			<label class="col-md-2 control-label">查詢面板 : <input
+				type="checkbox" ng-model="checkboxModel.value1"
+				ng-click="queryPanel()"></label> <label
+				class="col-md-2 control-label">修改面板 : <input type="checkbox"
+				ng-model="checkboxModel.value2" ng-click="editPanel ()">
+			</label> <br> <br> <br>
 		</div>
 		<div ng-if="checkboxModel.value1" class="panel-body">
 			<div class="slide-animate" ng-include="'html/myFile1.html'"></div>
@@ -45,9 +47,8 @@
 		<div ng-if="checkboxModel.value2" class="panel-body">
 			<div class="slide-animate" ng-include="'html/myFile2.html'"></div>
 		</div>
-		
-			<div class="slide-animate" ng-include="'html/myFile3.html'"></div>
-	</div>
 
+		<div class="panel-body" ng-include="html3"></div>
+	</div>
 </body>
 </html>

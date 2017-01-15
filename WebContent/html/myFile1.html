@@ -19,83 +19,55 @@ th {
 .selected {
 	background-color: #C0C0C0;
 }
+
+hr {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 0;
+	border-top: 1px solid #eeeeee;
+}
 </style>
 
-<div class="left_div" ng-controller="MyFile1Controller">
-	<div class="text-center bg-primary" style="font-size: 150%">
+<div class="form-horizontal panel panel-primary"
+	ng-controller="MyFile1Controller">
+	<div class="text-center panel-heading" style="font-size: 150%">
 
 		<i class="glyphicon glyphicon-th-large rowstyle"></i> <span><font>查詢客戶資料</font></span>
 	</div>
-	<div class="row rowstyle">
-		<label class="col-md-1">客戶編號 : </label>
-		<div class="col-md-5">
-			<input type="text" class="form-control" ng-model="userNumber"
-				ng-init='userNumber=""' />
+	<div class="panel-body">
+		<div class="form-group rowstyle ">
+			<label class="col-md-1 control-label">客戶編號 : </label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" ng-model="userNumber"
+					ng-init='userNumber=""' />
+			</div>
+			<label class="col-md-1  control-label">客戶名稱 : </label>
+			<div class="col-md-5">
+				<input type="text" class="form-control" ng-model="userName"
+					/ ng-init='userName=""'>
+			</div>
 		</div>
-		<label class="col-md-1">客戶名稱 : </label>
-		<div class="col-md-5">
-			<input type="text" class="form-control" ng-model="userName"
-				/ ng-init='userName=""'>
+		<div class="form-group rowstyle">
+			<label class="col-md-1  control-label">等級 : </label>
+			<div class="col-md-5">
+				<select name="singleSelect" ng-model=userLv class="form-control">
+					<option value="">-- 請選擇 --</option>
+					<option ng-repeat="option in userLevel"
+						value="{{option.PARAM_CODE}}">{{option.PARAM_NAME}}</option>
+				</select><br>
+			</div>
+			<label class="col-md-1  control-label">入會日期 : </label>
+			<div class="col-md-5">
+				<input type="date" name="bday" class="form-control"
+					ng-model="userDate">
+			</div>
 		</div>
-	</div>
-	<div class="row rowstyle">
-		<label class="col-md-1">等級 : </label>
-		<div class="col-md-5">
-			<select name="singleSelect" ng-model=userLv class="form-control">
-				<option value="">-- 請選擇 --</option>
-				<option ng-repeat="option in userLevel"
-					value="{{option.PARAM_CODE}}">{{option.PARAM_NAME}}</option>
-			</select><br>
-		</div>
-		<label class="col-md-1">入會日期 : <button ng-click="send()" value="5566">5566</button></label>
-		<div class="col-md-5">
-			<input type="date" name="bday" class="form-control"
-				ng-model="userDate">
-		</div>
-	</div>
-
-	<div class="row btn-group col-md-offset-5">
-		<button type="button" class="btn btn-primary" ng-click="query()">查詢</button>
-		<button type="button" class="btn btn-primary" ng-click="reset()">清除</button>
-
-	</div>
-
-	<div ng-show="status">
-		<table class="table table-bordered" ng-table="usersTable"
-			class="table table-striped">
-			<thead>
-				<tr>
-					<th><a href="#"
-						ng-click="sortType = 'CUST_ID'; sortReverse = !sortReverse">編號</a></th>
-					<th><a href="#"
-						ng-click="sortType = 'CUST_NAME'; sortReverse = !sortReverse">名稱</a></th>
-					<th><a href="#"
-						ng-click="sortType = 'VIP_CODE'; sortReverse = !sortReverse">等級</a></th>
-					<th><a href="#"
-						ng-click="sortType = 'DEPOSIT'; sortReverse = !sortReverse">存款</a></th>
-					<th><a href="#"
-						ng-click="sortType = 'ENTRY_DATE'; sortReverse = !sortReverse">入會日期</a></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr
-					ng-repeat="x in datas | orderBy:sortType:sortReverse | filter:searchFish | start: (currentPage - 1) * pageSize | limitTo: pageSize"
-					ng-click="setSelected(x)"
-					ng-class="{selected : x=== idSelectedVote}">
-					<td class="col-md-2">{{ x.CUST_ID }}</td>
-					<td class="col-md-2">{{ x.CUST_NAME }}</td>
-					<td class="col-md-2">{{ x.VIP_CODE|lv }}</td>
-					<td class="col-md-3">{{ x.DEPOSIT }}</td>
-					<td class="col-md-3">{{ x.ENTRY_DATE }}</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="text-center">
-			<ul uib-pagination total-items="datas.length"
-				items-per-page="pageSize" ng-model="currentPage" max-size="5"
-				next-text=">" previous-text="<" boundary-links="true"
-				first-text="第一頁" last-text="最後一頁" class="pagination-sm"></ul>
+		<hr>
+		<div class="form-group rowstyle ">
+			<div class="col-sm-offset-5 col-md-5">
+				<button type="button" class="btn btn-primary" ng-click="query()">查詢</button>
+				<button type="button" class="btn btn-primary" ng-click="reset()">清除</button>
+			</div>
 		</div>
 	</div>
-
 </div>
